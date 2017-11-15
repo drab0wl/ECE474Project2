@@ -14,8 +14,10 @@ namespace Project1
         private List<ReservationStation> AddStations;
         private List<ReservationStation> MultStations;
         private List<ReorderBuffer> ROBs;
-        public int IssuePointer = 0;
-        public int CommitPointer = 0;
+        public int IssuePointer { get { return (int)(_IssuePointer % MAX_ROBS); } }
+        private int _IssuePointer = 0;
+        public int CommitPointer { get { return _CommitPointer; } }
+        public int _CommitPointer = 0;
 
         private ArithmeticStation AddUnit;
         private ArithmeticStation MultUnit;
@@ -126,57 +128,61 @@ namespace Project1
             ReservationStation reservationStation = null;
             if (this.InstructionQueue.Count > 0)
             {
-                // See which data structure instruction belongs to
-                Instruction inst = this.InstructionQueue.First();
-                switch (inst.Op)
-                {
-                    case (int)OP.Add:
-                    case (int)OP.Sub:
-                        for (int i = 0; i < MAX_ADD_STATIONS; i++)
-                        {
-                            if (AddStations[i].Ready)
-                            {
-                                reservationStation = SetRS(AddStations, i);
-                                break;
-                            }
-                        }
-                        break;
-                    case (int)OP.Mult:
-                    case (int)OP.Div:
-                        for (int i = 0; i < MAX_MULT_STATIONS; i++)
-                        {
-                            if (MultStations[i].Ready)
-                            {
-                                reservationStation = SetRS(MultStations, i);
-                                break;
-                            }
-                        }
-                        break;
-                }
-                if (reservationStation != null)
-                {
-                    reservationStation.Dispatched = false;
-                    // Update RAT
-                    this.RAT[inst.DestReg].RAT = (uint)this.IssuePointer;
 
-                    // Update ROB
-                    this.ROBs[IssuePointer].RegisterFile = inst.DestReg;
-                    this.IssuePointer++;
-                }
-            }
-            // Stations are ready after no longer busy for one cycle
-            for (int i = 0; i < MAX_MULT_STATIONS; i++)
-            {
-                if (!MultStations[i].Busy)
+                // See which data structure instruction belongs to
+                if (CheckPointers())
                 {
-                    MultStations[i].Ready = true;
+                    Instruction inst = this.InstructionQueue.First();
+                    switch (inst.Op)
+                    {
+                        case (int)OP.Add:
+                        case (int)OP.Sub:
+                            for (int i = 0; i < MAX_ADD_STATIONS; i++)
+                            {
+                                if (AddStations[i].Ready)
+                                {
+                                    reservationStation = SetRS(AddStations, i);
+                                    break;
+                                }
+                            }
+                            break;
+                        case (int)OP.Mult:
+                        case (int)OP.Div:
+                            for (int i = 0; i < MAX_MULT_STATIONS; i++)
+                            {
+                                if (MultStations[i].Ready)
+                                {
+                                    reservationStation = SetRS(MultStations, i);
+                                    break;
+                                }
+                            }
+                            break;
+                    }
+                    if (reservationStation != null)
+                    {
+                        reservationStation.Dispatched = false;
+                        // Update RAT
+                        this.RAT[inst.DestReg].RAT = (uint)this.IssuePointer;
+
+                        // Update ROB
+                        this.ROBs[IssuePointer].RegisterFile = inst.DestReg;
+                        this._IssuePointer++;
+                    }
                 }
-            }
-            for (int i = 0; i < MAX_ADD_STATIONS; i++)
-            {
-                if (!AddStations[i].Busy)
+                // Stations are ready after no longer busy for one cycle
+                for (int i = 0; i < MAX_MULT_STATIONS; i++)
                 {
-                    AddStations[i].Ready = true;
+                    if (!MultStations[i].Busy)
+                    {
+                        MultStations[i].Ready = true;
+                    }
+                }
+                for (int i = 0; i < MAX_ADD_STATIONS; i++)
+                {
+                    if (!AddStations[i].Busy)
+                    {
+                        AddStations[i].Ready = true;
+                    }
                 }
             }
             return reservationStation;
@@ -295,6 +301,22 @@ namespace Project1
                 }
             }
             return retVal;
-        }               
+        } 
+
+        private bool CheckPointers()
+        {
+            bool issueReady = false;
+
+            if (IssuePointer == 0)
+            {
+                issueReady = true;
+            }
+            else if ((_IssuePointer > _CommitPointer) &&
+                    (_IssuePointer - _CommitPointer < MAX_ROBS))
+            {
+                issueReady = true;
+            }
+            return issueReady;
+        }
     }
 }
