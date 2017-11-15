@@ -252,13 +252,13 @@ namespace Project1
             if (MultUnit.Cycle())
             {
                 retVal[CAPTURE_VALUE] = MultUnit.PerformOp();
-                retVal[STATION_INDEX] = MultUnit.CurrentStation;
+                retVal[STATION_INDEX] = MultUnit.CurrentROB;
                 MultUnit.Broadcasted = true;
             }
             else if(AddUnit.Cycle())
             {
                 retVal[CAPTURE_VALUE] = AddUnit.PerformOp();
-                retVal[STATION_INDEX] = AddUnit.CurrentStation;
+                retVal[STATION_INDEX] = AddUnit.CurrentROB;
                 AddUnit.Broadcasted = true;
             }
             // Broadcast values

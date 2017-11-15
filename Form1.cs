@@ -249,8 +249,7 @@ namespace Project1
         /// <param name="values">Reservation Station, Value</param>
         private void BroadcastUpdate(int[] values)
         {
-            // Set busy and dispatch to false
-            this.resStationsDGV.Rows[values[Algorithm.STATION_INDEX]].Cells[0].Value = false;
+            // Set dispatch to false
             this.resStationsDGV.Rows[values[Algorithm.STATION_INDEX]].Cells[6].Value = false;
 
             // Update Reservation Stations
@@ -258,7 +257,7 @@ namespace Project1
             {
                 foreach(DataGridViewTextBoxCell cell in row.Cells)
                 {
-                    if (cell.Value != null && cell.Value.Equals("RS" + values[Algorithm.STATION_INDEX]))
+                    if (cell.Value != null && cell.Value.Equals("ROB" + values[Algorithm.STATION_INDEX]))
                     {
                         if (cell.ColumnIndex.Equals(4))
                         {
@@ -274,18 +273,19 @@ namespace Project1
                 }
             }
 
+            // Commented out.  This needs to be done in commit
             // Update RAT
-            foreach(DataGridViewRow row in this.ratTableDGV.Rows)
-            {
-                foreach (DataGridViewTextBoxCell cell in row.Cells)
-                {
-                    if (cell.Value != null && cell.Value.Equals("RS" + values[Algorithm.STATION_INDEX]))
-                    {
-                        row.Cells[0].Value = values[Algorithm.CAPTURE_VALUE];
-                        row.Cells[1].Value = "Empty";
-                    }
-                }
-            }
+            //foreach(DataGridViewRow row in this.ratTableDGV.Rows)
+            //{
+            //    foreach (DataGridViewTextBoxCell cell in row.Cells)
+            //    {
+            //        if (cell.Value != null && cell.Value.Equals("RS" + values[Algorithm.STATION_INDEX]))
+            //        {
+            //            row.Cells[0].Value = values[Algorithm.CAPTURE_VALUE];
+            //            row.Cells[1].Value = "Empty";
+            //        }
+            //    }
+            //}
         }
 
         /// <summary>
