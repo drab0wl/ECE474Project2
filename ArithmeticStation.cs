@@ -10,7 +10,7 @@ namespace Project1
         /// <summary>
         /// Reservation station currently filling the math unit
         /// </summary>
-        public int CurrentStation { get { return Station.Index; } }
+        public int CurrentROB { get { return _ROBIndex; } }
 
         /// <summary>
         /// Flag whether or not unit is in use
@@ -19,6 +19,7 @@ namespace Project1
 
         public bool Broadcasted { get; set; }
 
+        private int _ROBIndex;
         private int Cycles;
         private bool Full;
         private ReservationStation Station;
@@ -37,7 +38,7 @@ namespace Project1
         /// </summary>
         /// <param name="input">Reservation Station</param>
         /// <returns>Success Flag</returns>
-        public bool GiveStation(ReservationStation input)
+        public bool GiveStation(ReservationStation input, int robIndex)
         {
             bool success = false;
             if (input != null)
@@ -45,6 +46,7 @@ namespace Project1
                 if (!Full)
                 {
                     this.Station = input;
+                    this._ROBIndex = robIndex;
                     switch (Station.Op)
                     {
                         case (int)OP.Add:

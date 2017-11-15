@@ -196,7 +196,7 @@ namespace Project1
         {
             ReservationStation station = null;
             bool dispatched = false;
-            
+            int robIndex = (int)((_IssuePointer - 1) % MAX_ROBS);
             if (!MultUnit.InUse)
             {
                 for (int i = 0; i < MultStations.Count; i++)
@@ -208,7 +208,8 @@ namespace Project1
                     {
                         station = MultStations[i];
                         station.Dispatched = true;
-                        MultUnit.GiveStation(station);
+                        
+                        MultUnit.GiveStation(station, robIndex);
                         dispatched = true;
                         break;
                     }
@@ -228,7 +229,7 @@ namespace Project1
                         {
                             station = AddStations[i];
                             station.Dispatched = true;
-                            AddUnit.GiveStation(station);
+                            AddUnit.GiveStation(station, robIndex);
                             dispatched = true;
                             break;
                         }
@@ -291,14 +292,15 @@ namespace Project1
                     }
                 }
 
-                for (int i = 0; i < RAT.Count; i++)
-                {
-                    if (RAT[i].RAT == retVal[STATION_INDEX])
-                    {
-                        RAT[i].RegisterFile = retVal[CAPTURE_VALUE];
-                        RAT[i].RAT = DEFAULT_RAT;
-                    }
-                }
+                // Commented out for ROB
+                //for (int i = 0; i < RAT.Count; i++)
+                //{
+                //    if (RAT[i].RAT == retVal[STATION_INDEX])
+                //    {
+                //        RAT[i].RegisterFile = retVal[CAPTURE_VALUE];
+                //        RAT[i].RAT = DEFAULT_RAT;
+                //    }
+                //}
             }
             return retVal;
         } 
