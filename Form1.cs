@@ -27,6 +27,11 @@ namespace Project1
                 this.ratTableDGV.Rows.Add();
                 this.ratTableDGV.Rows[i].HeaderCell.Value = "RF" + i;
             }
+            for (int i = 0; i < Algorithm.MAX_ROBS; i++)
+            {
+                this.robDGV.Rows.Add();
+                this.robDGV.Rows[i].HeaderCell.Value = "ROB" + i;
+            }
         }
 
         /// <summary>
@@ -178,12 +183,12 @@ namespace Project1
                 row.Cells["rsVkCol"].Value = station.Vk;
                 if (station.Qj != -1)
                 {
-                    row.Cells["rsQjCol"].Value = "RS" + station.Qj;
+                    row.Cells["rsQjCol"].Value = "ROB" + station.Qj;
                     row.Cells["rsVjCol"].Value = null;
                 }
                 if (station.Qk != -1)
                 {
-                    row.Cells["rsQkCol"].Value = "RS" + station.Qk;
+                    row.Cells["rsQkCol"].Value = "ROB" + station.Qk;
                     row.Cells["rsVkCol"].Value = null;
                 }
                 row.Cells["rsDispCol"].Value = station.Dispatched;
@@ -226,12 +231,14 @@ namespace Project1
             }
 
             // Issue instructions if available
+            int issuePointer = system.IssuePointer;
             ReservationStation issueStation = system.Issue();
             if (issueStation != null)
             {
                 this.instructionQueueDGV.Rows.RemoveAt(0);
                 AddValuesToRS(issueStation);
-                this.ratTableDGV.Rows[RF].Cells["ratRATCol"].Value = "RS" + issueStation.Index;
+                this.robDGV.Rows[issuePointer].Cells["regCol"].Value = "RF" + RF;
+                this.ratTableDGV.Rows[RF].Cells["ratRATCol"].Value = "ROB" + issuePointer;
             }
         }
 

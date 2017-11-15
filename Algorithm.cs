@@ -13,6 +13,10 @@ namespace Project1
 
         private List<ReservationStation> AddStations;
         private List<ReservationStation> MultStations;
+        private List<ReorderBuffer> ROBs;
+        public int IssuePointer = 0;
+        public int CommitPointer = 0;
+
         private ArithmeticStation AddUnit;
         private ArithmeticStation MultUnit;
 
@@ -23,6 +27,7 @@ namespace Project1
         public static readonly uint STATION_INDEX = 0;
         public static readonly uint CAPTURE_VALUE = 1;
         public static readonly int DEFAULT_Q_VALUE = -1;
+        public static readonly uint MAX_ROBS = 6;
 
         /// <summary>
         /// Default constructor
@@ -36,6 +41,7 @@ namespace Project1
             MultStations = new List<ReservationStation>();
             AddUnit = new ArithmeticStation();
             MultUnit = new ArithmeticStation();
+            ROBs = new List<ReorderBuffer>();
 
             // Create reservation stations
             for (int i = 0; i < MAX_ADD_STATIONS; i++)
@@ -49,6 +55,14 @@ namespace Project1
                 ReservationStation station = new ReservationStation();
                 station.Index = i + MAX_ADD_STATIONS;
                 MultStations.Add(station);
+            }
+            
+            // Create ROBs
+            for (int i = 0; i < MAX_ROBS; i++)
+            {
+                ReorderBuffer rob = new ReorderBuffer();
+                rob.Index = i;
+                ROBs.Add(rob);
             }
         }
 
@@ -143,7 +157,11 @@ namespace Project1
                 {
                     reservationStation.Dispatched = false;
                     // Update RAT
-                    this.RAT[inst.DestReg].RAT = (uint)reservationStation.Index;
+                    this.RAT[inst.DestReg].RAT = (uint)this.IssuePointer;
+
+                    // Update ROB
+                    this.ROBs[IssuePointer].RegisterFile = inst.DestReg;
+                    this.IssuePointer++;
                 }
             }
             // Stations are ready after no longer busy for one cycle

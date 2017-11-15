@@ -14,6 +14,7 @@
         public bool Dispatched { get; set; }
         public int Index { get; set; }
         public bool Ready { get; set; }
+        
 
         public ReservationStation()
         {

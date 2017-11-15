@@ -52,10 +52,18 @@
             this.stepButton = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.robDGV = new System.Windows.Forms.DataGridView();
+            this.regCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.valCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.doneCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.issueCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.commitCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.exceptionCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.resStationsDGV)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ratTableDGV)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.instructionQueueDGV)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.robDGV)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -65,7 +73,7 @@
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.menuStrip1.Size = new System.Drawing.Size(678, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(602, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -99,9 +107,6 @@
             // 
             this.resStationsDGV.AllowUserToAddRows = false;
             this.resStationsDGV.AllowUserToDeleteRows = false;
-            this.resStationsDGV.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.resStationsDGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.resStationsDGV.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.rsBusyCol,
@@ -117,7 +122,7 @@
             this.resStationsDGV.RowHeadersWidth = 60;
             this.resStationsDGV.RowTemplate.ReadOnly = true;
             this.resStationsDGV.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.resStationsDGV.Size = new System.Drawing.Size(576, 209);
+            this.resStationsDGV.Size = new System.Drawing.Size(576, 221);
             this.resStationsDGV.TabIndex = 1;
             // 
             // rsBusyCol
@@ -187,13 +192,11 @@
             // 
             this.ratTableDGV.AllowUserToAddRows = false;
             this.ratTableDGV.AllowUserToDeleteRows = false;
-            this.ratTableDGV.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.ratTableDGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.ratTableDGV.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.ratRFCol,
             this.ratRATCol});
-            this.ratTableDGV.Location = new System.Drawing.Point(12, 242);
+            this.ratTableDGV.Location = new System.Drawing.Point(12, 254);
             this.ratTableDGV.Name = "ratTableDGV";
             this.ratTableDGV.ReadOnly = true;
             this.ratTableDGV.RowHeadersWidth = 60;
@@ -221,14 +224,13 @@
             // 
             this.instructionQueueDGV.AllowUserToAddRows = false;
             this.instructionQueueDGV.AllowUserToDeleteRows = false;
-            this.instructionQueueDGV.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.instructionQueueDGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.instructionQueueDGV.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.queueOpCol,
             this.queueDestCol,
             this.queueV1Col,
             this.queueV2Col});
-            this.instructionQueueDGV.Location = new System.Drawing.Point(242, 242);
+            this.instructionQueueDGV.Location = new System.Drawing.Point(242, 254);
             this.instructionQueueDGV.Name = "instructionQueueDGV";
             this.instructionQueueDGV.ReadOnly = true;
             this.instructionQueueDGV.RowHeadersWidth = 50;
@@ -270,9 +272,8 @@
             // 
             // stepButton
             // 
-            this.stepButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.stepButton.Enabled = false;
-            this.stepButton.Location = new System.Drawing.Point(594, 455);
+            this.stepButton.Location = new System.Drawing.Point(513, 695);
             this.stepButton.Name = "stepButton";
             this.stepButton.Size = new System.Drawing.Size(75, 23);
             this.stepButton.TabIndex = 4;
@@ -282,7 +283,7 @@
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(594, 429);
+            this.textBox1.Location = new System.Drawing.Point(513, 669);
             this.textBox1.Name = "textBox1";
             this.textBox1.ReadOnly = true;
             this.textBox1.Size = new System.Drawing.Size(75, 20);
@@ -292,17 +293,85 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(594, 413);
+            this.label1.Location = new System.Drawing.Point(513, 653);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(36, 13);
             this.label1.TabIndex = 6;
             this.label1.Text = "Cycle:";
             // 
+            // robDGV
+            // 
+            this.robDGV.AllowUserToAddRows = false;
+            this.robDGV.AllowUserToDeleteRows = false;
+            this.robDGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.robDGV.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.regCol,
+            this.valCol,
+            this.doneCol,
+            this.issueCol,
+            this.commitCol,
+            this.exceptionCol});
+            this.robDGV.Location = new System.Drawing.Point(12, 497);
+            this.robDGV.Name = "robDGV";
+            this.robDGV.ReadOnly = true;
+            this.robDGV.RowHeadersWidth = 75;
+            this.robDGV.Size = new System.Drawing.Size(495, 221);
+            this.robDGV.TabIndex = 7;
+            // 
+            // regCol
+            // 
+            this.regCol.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.regCol.HeaderText = "Register";
+            this.regCol.Name = "regCol";
+            this.regCol.ReadOnly = true;
+            this.regCol.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // valCol
+            // 
+            this.valCol.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.valCol.HeaderText = "Value";
+            this.valCol.Name = "valCol";
+            this.valCol.ReadOnly = true;
+            this.valCol.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // doneCol
+            // 
+            this.doneCol.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.doneCol.HeaderText = "Done";
+            this.doneCol.Name = "doneCol";
+            this.doneCol.ReadOnly = true;
+            this.doneCol.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // issueCol
+            // 
+            this.issueCol.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.issueCol.HeaderText = "Issue";
+            this.issueCol.Name = "issueCol";
+            this.issueCol.ReadOnly = true;
+            this.issueCol.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // commitCol
+            // 
+            this.commitCol.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.commitCol.HeaderText = "Commit";
+            this.commitCol.Name = "commitCol";
+            this.commitCol.ReadOnly = true;
+            this.commitCol.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // exceptionCol
+            // 
+            this.exceptionCol.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.exceptionCol.HeaderText = "Exception";
+            this.exceptionCol.Name = "exceptionCol";
+            this.exceptionCol.ReadOnly = true;
+            this.exceptionCol.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(678, 494);
+            this.ClientSize = new System.Drawing.Size(602, 731);
+            this.Controls.Add(this.robDGV);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.stepButton);
@@ -318,6 +387,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.resStationsDGV)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ratTableDGV)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.instructionQueueDGV)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.robDGV)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -348,6 +418,13 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn queueV2Col;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.DataGridView robDGV;
+        private System.Windows.Forms.DataGridViewTextBoxColumn regCol;
+        private System.Windows.Forms.DataGridViewTextBoxColumn valCol;
+        private System.Windows.Forms.DataGridViewTextBoxColumn doneCol;
+        private System.Windows.Forms.DataGridViewTextBoxColumn issueCol;
+        private System.Windows.Forms.DataGridViewTextBoxColumn commitCol;
+        private System.Windows.Forms.DataGridViewTextBoxColumn exceptionCol;
     }
 }
 
