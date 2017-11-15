@@ -214,6 +214,12 @@ namespace Project1
                 RF = system.InstructionQueue.First().DestReg;
             }
 
+            ReorderBuffer rob = system.Commit();
+            if (rob != null)
+            {
+                CommitUpdateDGV(rob);
+            }
+
             // Broadcast if any values are available
             int[] broadcastValues = system.Broadcast();
 
@@ -239,6 +245,7 @@ namespace Project1
                 this.instructionQueueDGV.Rows.RemoveAt(0);
                 AddValuesToRS(issueStation);
                 this.robDGV.Rows[issuePointer].Cells["regCol"].Value = "RF" + RF;
+                this.robDGV.Rows[issuePointer + 1].Cells["commitCol"].Value = this.textBox1.Text;
                 this.ratTableDGV.Rows[RF].Cells["ratRATCol"].Value = "ROB" + issuePointer;
             }
         }
@@ -298,6 +305,12 @@ namespace Project1
             //        }
             //    }
             //}
+        }
+
+        private void CommitUpdateDGV(ReorderBuffer rob)
+        {
+            this.ratTableDGV.Rows[rob.RegisterFile].Cells["ratRatCol"].Value = "RF" + rob.RegisterFile.ToString();
+            this.robDGV.Rows[rob.Index + 1].Cells["commitCol"].Value = this.textBox1.Text;
         }
 
         /// <summary>

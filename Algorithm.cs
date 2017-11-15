@@ -316,8 +316,9 @@ namespace Project1
             return retVal;
         } 
 
-        public void Commit()
+        public ReorderBuffer Commit()
         {
+            ReorderBuffer returnRob = null; 
             foreach (ReorderBuffer rob in ROBs)
             {
                 if (rob.Done && rob.Index == CommitPointer)
@@ -332,10 +333,12 @@ namespace Project1
                             RAT[i].RAT = DEFAULT_RAT;
                         }
                     }
+                    returnRob = rob;
                     break;
                 }
             }
             _CommitPointer++;
+            return returnRob;
         }
 
         private bool CheckPointers()
