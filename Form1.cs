@@ -217,7 +217,7 @@ namespace Project1
             // Broadcast if any values are available
             int[] broadcastValues = system.Broadcast();
 
-            if (broadcastValues[Algorithm.STATION_INDEX] != Algorithm.DEFAULT_RAT)
+            if (broadcastValues[Algorithm.ROB_INDEX] != Algorithm.DEFAULT_RAT)
             {
                 BroadcastUpdate(broadcastValues);
             }
@@ -250,14 +250,14 @@ namespace Project1
         private void BroadcastUpdate(int[] values)
         {
             // Set dispatch to false
-            this.resStationsDGV.Rows[values[Algorithm.STATION_INDEX]].Cells[6].Value = false;
+            this.resStationsDGV.Rows[values[Algorithm.ROB_INDEX]].Cells[6].Value = false;
 
             // Update Reservation Stations
             foreach (DataGridViewRow row in this.resStationsDGV.Rows)
             {
                 foreach(DataGridViewTextBoxCell cell in row.Cells)
                 {
-                    if (cell.Value != null && cell.Value.Equals("ROB" + values[Algorithm.STATION_INDEX]))
+                    if (cell.Value != null && cell.Value.Equals("ROB" + values[Algorithm.ROB_INDEX]))
                     {
                         if (cell.ColumnIndex.Equals(4))
                         {
@@ -273,6 +273,17 @@ namespace Project1
                 }
             }
 
+            foreach(DataGridViewRow row in this.robDGV.Rows)
+            {
+                foreach(DataGridViewTextBoxCell cell in row.Cells)
+                {
+                    if(cell.Value != null && cell.Value.Equals("ROB" + values[Algorithm.ROB_INDEX]))
+                    {
+                        row.Cells[1].Value = values[Algorithm.CAPTURE_VALUE];
+                        row.Cells[2].Value = true;
+                    }
+                }
+            }
             // Commented out.  This needs to be done in commit
             // Update RAT
             //foreach(DataGridViewRow row in this.ratTableDGV.Rows)

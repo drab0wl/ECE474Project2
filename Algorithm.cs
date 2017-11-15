@@ -26,7 +26,7 @@ namespace Project1
         public static readonly int MAX_ADD_STATIONS = 3;
         public static readonly uint MAX_MULT_STATIONS = 2;
         public static readonly uint DEFAULT_RAT = 0xFF;
-        public static readonly uint STATION_INDEX = 0;
+        public static readonly uint ROB_INDEX = 0;
         public static readonly uint CAPTURE_VALUE = 1;
         public static readonly int DEFAULT_Q_VALUE = -1;
         public static readonly uint MAX_ROBS = 6;
@@ -252,26 +252,26 @@ namespace Project1
             if (MultUnit.Cycle())
             {
                 retVal[CAPTURE_VALUE] = MultUnit.PerformOp();
-                retVal[STATION_INDEX] = MultUnit.CurrentROB;
+                retVal[ROB_INDEX] = MultUnit.CurrentROB;
                 MultUnit.Broadcasted = true;
             }
             else if(AddUnit.Cycle())
             {
                 retVal[CAPTURE_VALUE] = AddUnit.PerformOp();
-                retVal[STATION_INDEX] = AddUnit.CurrentROB;
+                retVal[ROB_INDEX] = AddUnit.CurrentROB;
                 AddUnit.Broadcasted = true;
             }
             // Broadcast values
-            if (retVal[STATION_INDEX] != (int)DEFAULT_RAT)
+            if (retVal[ROB_INDEX] != (int)DEFAULT_RAT)
             {
                 for (int i = 0; i < AddStations.Count; i++)
                 {
-                    if (AddStations[i].Qj == retVal[STATION_INDEX])
+                    if (AddStations[i].Qj == retVal[ROB_INDEX])
                     {
                         AddStations[i].Vj = retVal[CAPTURE_VALUE];
                         AddStations[i].Qj = DEFAULT_Q_VALUE;
                     }
-                    if (AddStations[i].Qk == retVal[STATION_INDEX])
+                    if (AddStations[i].Qk == retVal[ROB_INDEX])
                     {
                         AddStations[i].Vk = retVal[CAPTURE_VALUE];
                         AddStations[i].Qk = DEFAULT_Q_VALUE;
@@ -280,15 +280,26 @@ namespace Project1
 
                 for (int i = 0; i < MultStations.Count; i++)
                 {
-                    if (MultStations[i].Qj == retVal[STATION_INDEX])
+                    if (MultStations[i].Qj == retVal[ROB_INDEX])
                     {
                         MultStations[i].Vj = retVal[CAPTURE_VALUE];
                         MultStations[i].Qj = DEFAULT_Q_VALUE;
                     }
-                    if (MultStations[i].Qk == retVal[STATION_INDEX])
+                    if (MultStations[i].Qk == retVal[ROB_INDEX])
                     {
                         MultStations[i].Vk = retVal[CAPTURE_VALUE];
                         MultStations[i].Qk = DEFAULT_Q_VALUE;
+                    }
+                }
+
+                // Update ROB's value
+                for (int i = 0; i < ROBs.Count; i++)
+                {
+                    if (ROBs[i].Index == retVal[ROB_INDEX])
+                    {
+                        ROBs[i].Value = retVal[CAPTURE_VALUE];
+                        ROBs[i].Done = true;
+                        break;
                     }
                 }
 
@@ -304,6 +315,17 @@ namespace Project1
             }
             return retVal;
         } 
+
+        public void Commit()
+        {
+            for (int i = 0; i < RAT.Count; i++)
+            {
+                if (RAT[i].RAT == CommitPointer)
+                {
+                    // update rf and rat to rf
+                }
+            }
+        }
 
         private bool CheckPointers()
         {
