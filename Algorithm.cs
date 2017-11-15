@@ -318,13 +318,24 @@ namespace Project1
 
         public void Commit()
         {
-            for (int i = 0; i < RAT.Count; i++)
+            foreach (ReorderBuffer rob in ROBs)
             {
-                if (RAT[i].RAT == CommitPointer)
+                if (rob.Done && rob.Index == CommitPointer)
                 {
-                    // update rf and rat to rf
+                    // No matter if RAT points to ROB update RF
+                    RAT[ROBs[CommitPointer].RegisterFile].RegisterFile = ROBs[CommitPointer].Value;
+                    // If RAT points to ROB update RAT to RF
+                    for (int i = 0; i < RAT.Count; i++)
+                    {
+                        if (RAT[i].RAT == ROBs[CommitPointer].Index)
+                        {
+                            RAT[i].RAT = DEFAULT_RAT;
+                        }
+                    }
+                    break;
                 }
             }
+            _CommitPointer++;
         }
 
         private bool CheckPointers()

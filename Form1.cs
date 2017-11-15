@@ -284,6 +284,7 @@ namespace Project1
                     }
                 }
             }
+
             // Commented out.  This needs to be done in commit
             // Update RAT
             //foreach(DataGridViewRow row in this.ratTableDGV.Rows)
