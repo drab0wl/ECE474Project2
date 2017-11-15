@@ -227,6 +227,7 @@ namespace Project1
             while (dispatchStation != null)
             {
                 this.resStationsDGV.Rows[dispatchStation.Index].Cells["rsDispCol"].Value = true;
+                this.resStationsDGV.Rows[dispatchStation.Index].Cells["rsBusyCol"].Value = false;
                 dispatchStation = system.Dispatch();
             }
 

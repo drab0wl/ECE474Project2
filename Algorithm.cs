@@ -195,7 +195,10 @@ namespace Project1
             {
                 for (int i = 0; i < MultStations.Count; i++)
                 {
-                    if ((MultStations[i].Qj == DEFAULT_Q_VALUE) && (MultStations[i].Qk == DEFAULT_Q_VALUE) && !MultStations[i].Dispatched && MultStations[i].Busy)
+                    if ((MultStations[i].Qj == DEFAULT_Q_VALUE) && 
+                        (MultStations[i].Qk == DEFAULT_Q_VALUE) && 
+                        !MultStations[i].Dispatched && 
+                        MultStations[i].Busy)
                     {
                         station = MultStations[i];
                         station.Dispatched = true;
@@ -212,7 +215,10 @@ namespace Project1
                 {
                     for (int i = 0; i < AddStations.Count; i++)
                     {
-                        if ((AddStations[i].Qj == DEFAULT_Q_VALUE) && (AddStations[i].Qk == DEFAULT_Q_VALUE) && !AddStations[i].Dispatched && AddStations[i].Busy)
+                        if ((AddStations[i].Qj == DEFAULT_Q_VALUE) && 
+                            (AddStations[i].Qk == DEFAULT_Q_VALUE) && 
+                            !AddStations[i].Dispatched && 
+                            AddStations[i].Busy)
                         {
                             station = AddStations[i];
                             station.Dispatched = true;
@@ -223,6 +229,7 @@ namespace Project1
                     }
                 }
             }
+            station.Busy = false;
             return station;
         }
         
