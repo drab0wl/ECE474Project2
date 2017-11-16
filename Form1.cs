@@ -176,6 +176,7 @@ namespace Project1
         {
             if (station != null)
             {
+                // Should this be rob?
                 DataGridViewRow row = this.resStationsDGV.Rows[station.Index];
                 row.Cells["rsBusyCol"].Value = station.Busy;
                 row.Cells["rsOpCol"].Value = Instruction.GetOpString(station.Op);
@@ -191,7 +192,6 @@ namespace Project1
                     row.Cells["rsQkCol"].Value = "ROB" + station.Qk;
                     row.Cells["rsVkCol"].Value = null;
                 }
-                row.Cells["rsDispCol"].Value = station.Dispatched;
             }
         }
         
@@ -232,7 +232,6 @@ namespace Project1
             ReservationStation dispatchStation = system.Dispatch();
             while (dispatchStation != null)
             {
-                this.resStationsDGV.Rows[dispatchStation.Index].Cells["rsDispCol"].Value = true;
                 this.resStationsDGV.Rows[dispatchStation.Index].Cells["rsBusyCol"].Value = false;
                 dispatchStation = system.Dispatch();
             }
@@ -245,7 +244,7 @@ namespace Project1
                 this.instructionQueueDGV.Rows.RemoveAt(0);
                 AddValuesToRS(issueStation);
                 this.robDGV.Rows[issuePointer].Cells["regCol"].Value = "RF" + RF;
-                this.robDGV.Rows[issuePointer + 1].Cells["commitCol"].Value = this.textBox1.Text;
+                this.robDGV.Rows[issuePointer + 1].Cells["issueCol"].Value = this.textBox1.Text;
                 this.ratTableDGV.Rows[RF].Cells["ratRATCol"].Value = "ROB" + issuePointer;
             }
         }
@@ -256,9 +255,6 @@ namespace Project1
         /// <param name="values">Reservation Station, Value</param>
         private void BroadcastUpdate(int[] values)
         {
-            // Set dispatch to false
-            this.resStationsDGV.Rows[values[Algorithm.ROB_INDEX]].Cells[6].Value = false;
-
             // Update Reservation Stations
             foreach (DataGridViewRow row in this.resStationsDGV.Rows)
             {
@@ -280,17 +276,8 @@ namespace Project1
                 }
             }
 
-            foreach(DataGridViewRow row in this.robDGV.Rows)
-            {
-                foreach(DataGridViewTextBoxCell cell in row.Cells)
-                {
-                    if(cell.Value != null && cell.Value.Equals("ROB" + values[Algorithm.ROB_INDEX]))
-                    {
-                        row.Cells[1].Value = values[Algorithm.CAPTURE_VALUE];
-                        row.Cells[2].Value = true;
-                    }
-                }
-            }
+            this.robDGV.Rows[values[Algorithm.ROB_INDEX]].Cells[1].Value = values[Algorithm.CAPTURE_VALUE];
+            this.robDGV.Rows[values[Algorithm.ROB_INDEX]].Cells[2].Value = true;
 
             // Commented out.  This needs to be done in commit
             // Update RAT
@@ -309,7 +296,12 @@ namespace Project1
 
         private void CommitUpdateDGV(ReorderBuffer rob)
         {
-            this.ratTableDGV.Rows[rob.RegisterFile].Cells["ratRatCol"].Value = "RF" + rob.RegisterFile.ToString();
+            string currentRAT = this.ratTableDGV.Rows[rob.RegisterFile].Cells["ratRatCol"].Value.ToString();
+            if (currentRAT.Equals("ROB" + rob.Index))
+            {
+                this.ratTableDGV.Rows[rob.RegisterFile].Cells["ratRatCol"].Value = "RF" + rob.RegisterFile.ToString();
+            }
+            this.ratTableDGV.Rows[rob.RegisterFile].Cells["ratRFCol"].Value = rob.Value;
             this.robDGV.Rows[rob.Index + 1].Cells["commitCol"].Value = this.textBox1.Text;
         }
 

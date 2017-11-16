@@ -79,7 +79,7 @@ namespace Project1
             ReservationStation reservationStation = stations[index];
             stations[index].Busy = true;
             stations[index].Ready = false;
-
+            stations[index].ROBIndex = this.IssuePointer;
             Instruction inst = this.InstructionQueue.Dequeue();
             stations[index].Op = inst.Op;
             // Check RAT for placeholders
@@ -196,7 +196,6 @@ namespace Project1
         {
             ReservationStation station = null;
             bool dispatched = false;
-            int robIndex = (int)((_IssuePointer - 1) % MAX_ROBS);
             if (!MultUnit.InUse)
             {
                 for (int i = 0; i < MultStations.Count; i++)
@@ -208,8 +207,8 @@ namespace Project1
                     {
                         station = MultStations[i];
                         station.Dispatched = true;
-                        
-                        MultUnit.GiveStation(station, robIndex);
+                        // TODO: Not giving the correct robindex
+                        MultUnit.GiveStation(station, station.ROBIndex);
                         dispatched = true;
                         break;
                     }
@@ -229,14 +228,18 @@ namespace Project1
                         {
                             station = AddStations[i];
                             station.Dispatched = true;
-                            AddUnit.GiveStation(station, robIndex);
+                            // TODO: Not giving the correct robindex
+                            AddUnit.GiveStation(station, station.ROBIndex);
                             dispatched = true;
                             break;
                         }
                     }
                 }
             }
-            station.Busy = false;
+            if (station != null)
+            {
+                station.Busy = false;
+            }
             return station;
         }
         
@@ -292,6 +295,7 @@ namespace Project1
                     }
                 }
 
+                // TODO // direct access ROB
                 // Update ROB's value
                 for (int i = 0; i < ROBs.Count; i++)
                 {
@@ -318,6 +322,7 @@ namespace Project1
 
         public ReorderBuffer Commit()
         {
+            // TODO: direct access ROBs?
             ReorderBuffer returnRob = null; 
             foreach (ReorderBuffer rob in ROBs)
             {
@@ -337,7 +342,10 @@ namespace Project1
                     break;
                 }
             }
-            _CommitPointer++;
+            if (returnRob != null)
+            {
+                _CommitPointer++;
+            }
             return returnRob;
         }
 

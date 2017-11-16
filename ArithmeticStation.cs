@@ -10,7 +10,7 @@ namespace Project1
         /// <summary>
         /// Reservation station currently filling the math unit
         /// </summary>
-        public int CurrentROB { get { return _ROBIndex; } }
+        public int CurrentROB { get { return (int)(_ROBIndex % Algorithm.MAX_ROBS); } }
 
         /// <summary>
         /// Flag whether or not unit is in use

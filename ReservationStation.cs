@@ -14,7 +14,7 @@
         public bool Dispatched { get; set; }
         public int Index { get; set; }
         public bool Ready { get; set; }
-        
+        public int ROBIndex { get; set; }        
 
         public ReservationStation()
         {
@@ -23,6 +23,7 @@
             Ready = true;
             Qj = Algorithm.DEFAULT_Q_VALUE;
             Qk = Algorithm.DEFAULT_Q_VALUE;
+            ROBIndex = Algorithm.DEFAULT_Q_VALUE;
         } 
     }
 }

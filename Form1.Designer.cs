@@ -34,13 +34,6 @@
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.resStationsDGV = new System.Windows.Forms.DataGridView();
-            this.rsBusyCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.rsOpCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.rsVjCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.rsVkCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.rsQjCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.rsQkCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.rsDispCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ratTableDGV = new System.Windows.Forms.DataGridView();
             this.ratRFCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ratRATCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -59,6 +52,12 @@
             this.issueCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.commitCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.exceptionCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.rsBusyCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.rsOpCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.rsVjCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.rsVkCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.rsQjCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.rsQkCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.resStationsDGV)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ratTableDGV)).BeginInit();
@@ -114,8 +113,7 @@
             this.rsVjCol,
             this.rsVkCol,
             this.rsQjCol,
-            this.rsQkCol,
-            this.rsDispCol});
+            this.rsQkCol});
             this.resStationsDGV.Location = new System.Drawing.Point(12, 27);
             this.resStationsDGV.Name = "resStationsDGV";
             this.resStationsDGV.ReadOnly = true;
@@ -124,69 +122,6 @@
             this.resStationsDGV.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.resStationsDGV.Size = new System.Drawing.Size(576, 221);
             this.resStationsDGV.TabIndex = 1;
-            // 
-            // rsBusyCol
-            // 
-            this.rsBusyCol.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.rsBusyCol.FillWeight = 99.81239F;
-            this.rsBusyCol.HeaderText = "Busy";
-            this.rsBusyCol.Name = "rsBusyCol";
-            this.rsBusyCol.ReadOnly = true;
-            this.rsBusyCol.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // rsOpCol
-            // 
-            this.rsOpCol.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.rsOpCol.FillWeight = 99.84148F;
-            this.rsOpCol.HeaderText = "Op";
-            this.rsOpCol.Name = "rsOpCol";
-            this.rsOpCol.ReadOnly = true;
-            this.rsOpCol.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // rsVjCol
-            // 
-            this.rsVjCol.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.rsVjCol.FillWeight = 99.86642F;
-            this.rsVjCol.HeaderText = "Vj";
-            this.rsVjCol.Name = "rsVjCol";
-            this.rsVjCol.ReadOnly = true;
-            this.rsVjCol.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // rsVkCol
-            // 
-            this.rsVkCol.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.rsVkCol.FillWeight = 101.2021F;
-            this.rsVkCol.HeaderText = "Vk";
-            this.rsVkCol.Name = "rsVkCol";
-            this.rsVkCol.ReadOnly = true;
-            this.rsVkCol.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // rsQjCol
-            // 
-            this.rsQjCol.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.rsQjCol.FillWeight = 99.71875F;
-            this.rsQjCol.HeaderText = "Qj";
-            this.rsQjCol.Name = "rsQjCol";
-            this.rsQjCol.ReadOnly = true;
-            this.rsQjCol.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // rsQkCol
-            // 
-            this.rsQkCol.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.rsQkCol.FillWeight = 99.76121F;
-            this.rsQkCol.HeaderText = "Qk";
-            this.rsQkCol.Name = "rsQkCol";
-            this.rsQkCol.ReadOnly = true;
-            this.rsQkCol.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // rsDispCol
-            // 
-            this.rsDispCol.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.rsDispCol.FillWeight = 99.79761F;
-            this.rsDispCol.HeaderText = "Disp";
-            this.rsDispCol.Name = "rsDispCol";
-            this.rsDispCol.ReadOnly = true;
-            this.rsDispCol.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // ratTableDGV
             // 
@@ -366,6 +301,60 @@
             this.exceptionCol.ReadOnly = true;
             this.exceptionCol.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
+            // rsBusyCol
+            // 
+            this.rsBusyCol.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.rsBusyCol.FillWeight = 99.81239F;
+            this.rsBusyCol.HeaderText = "Busy";
+            this.rsBusyCol.Name = "rsBusyCol";
+            this.rsBusyCol.ReadOnly = true;
+            this.rsBusyCol.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // rsOpCol
+            // 
+            this.rsOpCol.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.rsOpCol.FillWeight = 99.84148F;
+            this.rsOpCol.HeaderText = "Op";
+            this.rsOpCol.Name = "rsOpCol";
+            this.rsOpCol.ReadOnly = true;
+            this.rsOpCol.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // rsVjCol
+            // 
+            this.rsVjCol.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.rsVjCol.FillWeight = 99.86642F;
+            this.rsVjCol.HeaderText = "Vj";
+            this.rsVjCol.Name = "rsVjCol";
+            this.rsVjCol.ReadOnly = true;
+            this.rsVjCol.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // rsVkCol
+            // 
+            this.rsVkCol.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.rsVkCol.FillWeight = 101.2021F;
+            this.rsVkCol.HeaderText = "Vk";
+            this.rsVkCol.Name = "rsVkCol";
+            this.rsVkCol.ReadOnly = true;
+            this.rsVkCol.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // rsQjCol
+            // 
+            this.rsQjCol.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.rsQjCol.FillWeight = 99.71875F;
+            this.rsQjCol.HeaderText = "Qj";
+            this.rsQjCol.Name = "rsQjCol";
+            this.rsQjCol.ReadOnly = true;
+            this.rsQjCol.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // rsQkCol
+            // 
+            this.rsQkCol.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.rsQkCol.FillWeight = 99.76121F;
+            this.rsQkCol.HeaderText = "Qk";
+            this.rsQkCol.Name = "rsQkCol";
+            this.rsQkCol.ReadOnly = true;
+            this.rsQkCol.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -400,13 +389,6 @@
         private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.DataGridView resStationsDGV;
-        private System.Windows.Forms.DataGridViewTextBoxColumn rsBusyCol;
-        private System.Windows.Forms.DataGridViewTextBoxColumn rsOpCol;
-        private System.Windows.Forms.DataGridViewTextBoxColumn rsVjCol;
-        private System.Windows.Forms.DataGridViewTextBoxColumn rsVkCol;
-        private System.Windows.Forms.DataGridViewTextBoxColumn rsQjCol;
-        private System.Windows.Forms.DataGridViewTextBoxColumn rsQkCol;
-        private System.Windows.Forms.DataGridViewTextBoxColumn rsDispCol;
         private System.Windows.Forms.DataGridView ratTableDGV;
         private System.Windows.Forms.DataGridViewTextBoxColumn ratRFCol;
         private System.Windows.Forms.DataGridViewTextBoxColumn ratRATCol;
@@ -425,6 +407,12 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn issueCol;
         private System.Windows.Forms.DataGridViewTextBoxColumn commitCol;
         private System.Windows.Forms.DataGridViewTextBoxColumn exceptionCol;
+        private System.Windows.Forms.DataGridViewTextBoxColumn rsBusyCol;
+        private System.Windows.Forms.DataGridViewTextBoxColumn rsOpCol;
+        private System.Windows.Forms.DataGridViewTextBoxColumn rsVjCol;
+        private System.Windows.Forms.DataGridViewTextBoxColumn rsVkCol;
+        private System.Windows.Forms.DataGridViewTextBoxColumn rsQjCol;
+        private System.Windows.Forms.DataGridViewTextBoxColumn rsQkCol;
     }
 }
 
