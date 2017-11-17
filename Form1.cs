@@ -50,6 +50,7 @@ namespace Project1
                     ClearSystem();
 
                     this.stepButton.Enabled = true;
+                    this.goToButton.Enabled = true;
                     using (StreamReader reader = new StreamReader(openDx.OpenFile()))
                     {
                         // Get instructions and cycles
@@ -124,6 +125,14 @@ namespace Project1
                 instructionQueueDGV.Rows.RemoveAt(i - 1);
             }
 
+            foreach(DataGridViewRow row in robDGV.Rows)
+            {
+                foreach(DataGridViewCell cell in row.Cells)
+                {
+                    cell.Value = null;
+                }
+            }
+
             if (system != null)
             {
                 if (system.InstructionQueue != null)
@@ -134,7 +143,13 @@ namespace Project1
                 {
                     system.RAT.Clear();
                 }
+                if (system.ROBs != null)
+                {
+                    system.ROBs.Clear();
+                }
             }
+
+
         }
 
         /// <summary>
@@ -278,20 +293,6 @@ namespace Project1
 
             this.robDGV.Rows[values[Algorithm.ROB_INDEX]].Cells[1].Value = values[Algorithm.CAPTURE_VALUE];
             this.robDGV.Rows[values[Algorithm.ROB_INDEX]].Cells[2].Value = true;
-
-            // Commented out.  This needs to be done in commit
-            // Update RAT
-            //foreach(DataGridViewRow row in this.ratTableDGV.Rows)
-            //{
-            //    foreach (DataGridViewTextBoxCell cell in row.Cells)
-            //    {
-            //        if (cell.Value != null && cell.Value.Equals("RS" + values[Algorithm.STATION_INDEX]))
-            //        {
-            //            row.Cells[0].Value = values[Algorithm.CAPTURE_VALUE];
-            //            row.Cells[1].Value = "Empty";
-            //        }
-            //    }
-            //}
         }
 
         private void CommitUpdateDGV(ReorderBuffer rob)
@@ -313,6 +314,27 @@ namespace Project1
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Application.Exit();
-        }        
+        }
+
+        private void goToButton_Click(object sender, EventArgs e)
+        {
+            int currentCycle = int.Parse(this.textBox1.Text);
+            int goToCycle = int.Parse(this.goToTextBox.Text);
+            int cyclesToSkip = goToCycle - currentCycle;
+
+            if (goToCycle > currentCycle)
+            {
+                for(int i = 0; i < cyclesToSkip; i++)
+                {
+                    stepButton_Click(null, null);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Go to cycle must be after current cycle.");
+            }
+
+
+        }
     }
 }

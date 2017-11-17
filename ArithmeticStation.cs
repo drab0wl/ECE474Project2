@@ -117,7 +117,6 @@ namespace Project1
                         result = Station.Vj / Station.Vk;
                         break;
                 }
-                Station.Busy = false;
             }
             catch
             {

@@ -10,10 +10,10 @@ namespace Project1
     {
         public Queue<Instruction> InstructionQueue { get; }
         public List<RatEntry> RAT { get; }
+        public List<ReorderBuffer> ROBs { get; }
 
         private List<ReservationStation> AddStations;
         private List<ReservationStation> MultStations;
-        private List<ReorderBuffer> ROBs;
         public int IssuePointer { get { return (int)(_IssuePointer % MAX_ROBS); } }
         private int _IssuePointer = 0;
         public int CommitPointer { get { return _CommitPointer; } }
@@ -207,7 +207,6 @@ namespace Project1
                     {
                         station = MultStations[i];
                         station.Dispatched = true;
-                        // TODO: Not giving the correct robindex
                         MultUnit.GiveStation(station, station.ROBIndex);
                         dispatched = true;
                         break;
@@ -228,7 +227,6 @@ namespace Project1
                         {
                             station = AddStations[i];
                             station.Dispatched = true;
-                            // TODO: Not giving the correct robindex
                             AddUnit.GiveStation(station, station.ROBIndex);
                             dispatched = true;
                             break;
@@ -294,35 +292,18 @@ namespace Project1
                         MultStations[i].Qk = DEFAULT_Q_VALUE;
                     }
                 }
-
-                // TODO // direct access ROB
+                
                 // Update ROB's value
-                for (int i = 0; i < ROBs.Count; i++)
-                {
-                    if (ROBs[i].Index == retVal[ROB_INDEX])
-                    {
-                        ROBs[i].Value = retVal[CAPTURE_VALUE];
-                        ROBs[i].Done = true;
-                        break;
-                    }
-                }
-
-                // Commented out for ROB
-                //for (int i = 0; i < RAT.Count; i++)
-                //{
-                //    if (RAT[i].RAT == retVal[STATION_INDEX])
-                //    {
-                //        RAT[i].RegisterFile = retVal[CAPTURE_VALUE];
-                //        RAT[i].RAT = DEFAULT_RAT;
-                //    }
-                //}
+                ROBs[retVal[ROB_INDEX]].Value = retVal[CAPTURE_VALUE];
+                ROBs[retVal[ROB_INDEX]].Done = true;
+                
+                
             }
             return retVal;
         } 
 
         public ReorderBuffer Commit()
         {
-            // TODO: direct access ROBs?
             ReorderBuffer returnRob = null; 
             foreach (ReorderBuffer rob in ROBs)
             {
