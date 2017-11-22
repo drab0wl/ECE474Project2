@@ -245,61 +245,68 @@ namespace Project1
         /// Performs the broadcast operation
         /// </summary>
         /// <returns>Reservation station broadcasted</returns>
-        public int[] Broadcast()
+        public ArithmeticStation Broadcast()
         {
-            int[] retVal = {(int)DEFAULT_RAT, 0 };
-
+            MultUnit.Cycle();
+            AddUnit.Cycle();
+            ArithmeticStation mathStation = null;
+            
             // Checks multiply unit first for broadcast, then add unit
-            if (MultUnit.Cycle())
+            if (!MultUnit.InUse && MultUnit.ReadyForBroadcast && !MultUnit.Broadcasted)
             {
-                retVal[CAPTURE_VALUE] = MultUnit.PerformOp();
-                retVal[ROB_INDEX] = MultUnit.CurrentROB;
+                mathStation = MultUnit;
                 MultUnit.Broadcasted = true;
             }
-            else if(AddUnit.Cycle())
+            else if (!AddUnit.InUse && AddUnit.ReadyForBroadcast && !MultUnit.Broadcasted)
             {
-                retVal[CAPTURE_VALUE] = AddUnit.PerformOp();
-                retVal[ROB_INDEX] = AddUnit.CurrentROB;
+                mathStation = AddUnit;
                 AddUnit.Broadcasted = true;
             }
+
             // Broadcast values
-            if (retVal[ROB_INDEX] != (int)DEFAULT_RAT)
+            if (mathStation != null && !mathStation.InUse)
             {
                 for (int i = 0; i < AddStations.Count; i++)
                 {
-                    if (AddStations[i].Qj == retVal[ROB_INDEX])
+                    if (AddStations[i].Qj == mathStation.CurrentROB)
                     {
-                        AddStations[i].Vj = retVal[CAPTURE_VALUE];
+                        AddStations[i].Vj = mathStation.Result;
                         AddStations[i].Qj = DEFAULT_Q_VALUE;
                     }
-                    if (AddStations[i].Qk == retVal[ROB_INDEX])
+                    if (AddStations[i].Qk == mathStation.CurrentROB)
                     {
-                        AddStations[i].Vk = retVal[CAPTURE_VALUE];
+                        AddStations[i].Vk = mathStation.Result;
                         AddStations[i].Qk = DEFAULT_Q_VALUE;
                     }
                 }
 
                 for (int i = 0; i < MultStations.Count; i++)
                 {
-                    if (MultStations[i].Qj == retVal[ROB_INDEX])
+                    if (MultStations[i].Qj == mathStation.CurrentROB)
                     {
-                        MultStations[i].Vj = retVal[CAPTURE_VALUE];
+                        MultStations[i].Vj = mathStation.Result;
                         MultStations[i].Qj = DEFAULT_Q_VALUE;
                     }
-                    if (MultStations[i].Qk == retVal[ROB_INDEX])
+                    if (MultStations[i].Qk == mathStation.CurrentROB)
                     {
-                        MultStations[i].Vk = retVal[CAPTURE_VALUE];
+                        MultStations[i].Vk = mathStation.Result;
                         MultStations[i].Qk = DEFAULT_Q_VALUE;
                     }
                 }
-                
+
                 // Update ROB's value
-                ROBs[retVal[ROB_INDEX]].Value = retVal[CAPTURE_VALUE];
-                ROBs[retVal[ROB_INDEX]].Done = true;
-                
-                
+                if (!mathStation.Exception)
+                {
+                    ROBs[mathStation.CurrentROB].Value = mathStation.Result;
+                }
+                else
+                {
+                    ROBs[mathStation.CurrentROB].Exception = true;
+                }
+                ROBs[mathStation.CurrentROB].Done = true;
+                mathStation.Broadcasted = true;                
             }
-            return retVal;
+            return mathStation;
         } 
 
         public ReorderBuffer Commit()
@@ -345,5 +352,6 @@ namespace Project1
             }
             return issueReady;
         }
+        
     }
 }

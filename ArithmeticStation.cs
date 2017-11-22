@@ -1,4 +1,5 @@
 ﻿using System.Windows.Forms;
+using System;
 
 namespace Project1
 {
@@ -15,22 +16,35 @@ namespace Project1
         /// <summary>
         /// Flag whether or not unit is in use
         /// </summary>
-        public bool InUse { get { return Full; } }
+        public bool InUse { get { return _InUse; } }
 
         public bool Broadcasted { get; set; }
 
+        public int Result {  get { return _Result; } }
+
+        public bool Exception { get { return _Exception; } }
+
+        public int Cycles { get { return _Cycles; } }
+
+        public bool ReadyForBroadcast { get { return _ReadyForBroadcast; } }
+
+        private bool _ReadyForBroadcast;
         private int _ROBIndex;
-        private int Cycles;
-        private bool Full;
+        private int _Cycles;
+        private bool _InUse;
         private ReservationStation Station;
+        private int _Result;
+        private bool _Exception;
 
         /// <summary>
         /// Default constructor
         /// </summary>
         public ArithmeticStation()
         {
-            this.Full = false;
+            this._InUse = false;
+            this._Exception = false;
             this.Broadcasted = false;
+            this._ReadyForBroadcast = false;
         }
 
         /// <summary>
@@ -43,24 +57,39 @@ namespace Project1
             bool success = false;
             if (input != null)
             {
-                if (!Full)
+                if (!InUse)
                 {
                     this.Station = input;
                     this._ROBIndex = robIndex;
-                    switch (Station.Op)
+                    try
                     {
-                        case (int)OP.Add:
-                        case (int)OP.Sub:
-                            this.Cycles = 2;
-                            break;
-                        case (int)OP.Mult:
-                            this.Cycles = 10;
-                            break;
-                        case (int)OP.Div:
-                            this.Cycles = 40;
-                            break;
+                        switch (Station.Op)
+                        {
+                            case (int)OP.Add:
+                                _Result = input.Vj + input.Vk;
+                                this._Cycles = 2;
+                                break;
+                            case (int)OP.Sub:
+                                _Result = input.Vj - input.Vk;
+                                this._Cycles = 2;
+                                break;
+                            case (int)OP.Mult:
+                                _Result = input.Vj * input.Vk;
+                                this._Cycles = 10;
+                                break;
+                            case (int)OP.Div:
+                                _Result = input.Vj / input.Vk;
+                                this._Cycles = 40;
+                                break;
+                        }
                     }
-                    this.Full = true;
+                    catch(ArithmeticException e)
+                    {
+                        this._Exception = true;
+                        this._Cycles = 38;
+                    }
+
+                    this._InUse = true;
                     this.Broadcasted = false;
                     success = true;
                 }
@@ -76,25 +105,20 @@ namespace Project1
         /// Cycles the math unit
         /// </summary>
         /// <returns>Incomplete Flag</returns>
-        public bool Cycle()
+        public void Cycle()
         {
-            bool retVal = false;
-            if (Full)
+            if (InUse)
             {
-                if ((--this.Cycles) == 0)
+                if (--this._Cycles == 0)
                 {
-                    retVal = true;
-                }
-                if (Broadcasted)
-                {
-                    Full = false;
+                    this._InUse = false;
+                    this._ReadyForBroadcast = true;
                 }
             }
-            return retVal;
         }
 
         /// <summary>
-        /// Performs operation in unit
+        /// !!DEPRECATED!! Performs operation in unit
         /// </summary>
         /// <returns>Operation Result</returns>
         public int PerformOp()

@@ -236,11 +236,11 @@ namespace Project1
             }
 
             // Broadcast if any values are available
-            int[] broadcastValues = system.Broadcast();
+            ArithmeticStation mathStation = system.Broadcast();
 
-            if (broadcastValues[Algorithm.ROB_INDEX] != Algorithm.DEFAULT_RAT)
+            if (mathStation != null)
             {
-                BroadcastUpdate(broadcastValues);
+                BroadcastUpdate(mathStation);
             }
 
             // Dispatch if any stations are ready
@@ -260,6 +260,7 @@ namespace Project1
                 AddValuesToRS(issueStation);
                 this.robDGV.Rows[issuePointer].Cells["regCol"].Value = "RF" + RF;
                 this.robDGV.Rows[issuePointer + 1].Cells["issueCol"].Value = this.textBox1.Text;
+                this.robDGV.Rows[issuePointer].Cells["exceptionCol"].Value = "0";
                 this.ratTableDGV.Rows[RF].Cells["ratRATCol"].Value = "ROB" + issuePointer;
             }
         }
@@ -268,32 +269,39 @@ namespace Project1
         /// Updates values in DataGridViews from broadcast
         /// </summary>
         /// <param name="values">Reservation Station, Value</param>
-        private void BroadcastUpdate(int[] values)
+        private void BroadcastUpdate(ArithmeticStation mathStation)
         {
-            // Update Reservation Stations
-            foreach (DataGridViewRow row in this.resStationsDGV.Rows)
+            if (!mathStation.Exception)
             {
-                foreach(DataGridViewTextBoxCell cell in row.Cells)
+                // Update Reservation Stations
+                foreach (DataGridViewRow row in this.resStationsDGV.Rows)
                 {
-                    if (cell.Value != null && cell.Value.Equals("ROB" + values[Algorithm.ROB_INDEX]))
+                    foreach (DataGridViewTextBoxCell cell in row.Cells)
                     {
-                        if (cell.ColumnIndex.Equals(4))
+                        if (cell.Value != null && cell.Value.Equals("ROB" + mathStation.CurrentROB))
                         {
-                            cell.Value = null;
-                            row.Cells[2].Value = values[Algorithm.CAPTURE_VALUE];
-                        }
-                        else if (cell.ColumnIndex.Equals(5))
-                        {
-                            cell.Value = null;
-                            row.Cells[3].Value = values[Algorithm.CAPTURE_VALUE];
+                            if (cell.ColumnIndex.Equals(4))
+                            {
+                                cell.Value = null;
+                                row.Cells[2].Value = mathStation.Result;
+                            }
+                            else if (cell.ColumnIndex.Equals(5))
+                            {
+                                cell.Value = null;
+                                row.Cells[3].Value = mathStation.Result;
+                            }
                         }
                     }
                 }
             }
-
-            this.robDGV.Rows[values[Algorithm.ROB_INDEX]].Cells[1].Value = values[Algorithm.CAPTURE_VALUE];
-            this.robDGV.Rows[values[Algorithm.ROB_INDEX]].Cells[2].Value = true;
+            else
+            {
+                this.robDGV.Rows[mathStation.CurrentROB].Cells[5].Value = 1;
+            }
+            this.robDGV.Rows[mathStation.CurrentROB].Cells[1].Value = mathStation.Result;
+            this.robDGV.Rows[mathStation.CurrentROB].Cells[2].Value = true;
         }
+
 
         private void CommitUpdateDGV(ReorderBuffer rob)
         {
@@ -333,8 +341,6 @@ namespace Project1
             {
                 MessageBox.Show("Go to cycle must be after current cycle.");
             }
-
-
-        }
+        }        
     }
 }
