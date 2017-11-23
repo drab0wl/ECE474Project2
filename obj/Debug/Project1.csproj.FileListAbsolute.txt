@@ -7,3 +7,12 @@ D:\Users\guert\Desktop\ECE 474\Project 1\Project1\obj\Debug\Project1.Properties.
 D:\Users\guert\Desktop\ECE 474\Project 1\Project1\obj\Debug\Project1.csproj.GenerateResource.Cache
 D:\Users\guert\Desktop\ECE 474\Project 1\Project1\obj\Debug\Project1.exe
 D:\Users\guert\Desktop\ECE 474\Project 1\Project1\obj\Debug\Project1.pdb
+C:\Users\John\Desktop\ECE474Project2\ECE474Project2\bin\Debug\Project1.exe.config
+C:\Users\John\Desktop\ECE474Project2\ECE474Project2\obj\Debug\Project1.exe
+C:\Users\John\Desktop\ECE474Project2\ECE474Project2\obj\Debug\Project1.pdb
+C:\Users\John\Desktop\ECE474Project2\ECE474Project2\bin\Debug\Project1.exe
+C:\Users\John\Desktop\ECE474Project2\ECE474Project2\bin\Debug\Project1.pdb
+C:\Users\John\Desktop\ECE474Project2\ECE474Project2\obj\Debug\Project1.csprojResolveAssemblyReference.cache
+C:\Users\John\Desktop\ECE474Project2\ECE474Project2\obj\Debug\Project1.Form1.resources
+C:\Users\John\Desktop\ECE474Project2\ECE474Project2\obj\Debug\Project1.Properties.Resources.resources
+C:\Users\John\Desktop\ECE474Project2\ECE474Project2\obj\Debug\Project1.csproj.GenerateResource.Cache

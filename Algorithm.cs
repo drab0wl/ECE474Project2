@@ -257,7 +257,7 @@ namespace Project1
                 mathStation = MultUnit;
                 MultUnit.Broadcasted = true;
             }
-            else if (!AddUnit.InUse && AddUnit.ReadyForBroadcast && !MultUnit.Broadcasted)
+            else if (!AddUnit.InUse && AddUnit.ReadyForBroadcast && !AddUnit.Broadcasted)
             {
                 mathStation = AddUnit;
                 AddUnit.Broadcasted = true;
@@ -352,6 +352,39 @@ namespace Project1
             }
             return issueReady;
         }
+
+        public void ClearRATonCommit()
+        {
+            foreach(RatEntry ratRF in RAT)
+            {
+                ratRF.RAT = DEFAULT_RAT;
+            }
+        }
         
+        public void ClearROBonCommit()
+        {
+            foreach(ReorderBuffer rob in ROBs)
+            {
+                rob.Done = false;
+                rob.Exception = false;
+                rob.RegisterFile = 0;
+                rob.Value = 0;
+            }
+        }
+
+        public void ClearRSonCommit()
+        {
+            foreach(ReservationStation rs in AddStations)
+            {
+                rs.Busy = false;
+                rs.Dispatched = false;
+                rs.Qj = DEFAULT_Q_VALUE;
+                rs.Qk = DEFAULT_Q_VALUE;
+                rs.Ready = true;
+                rs.ROBIndex = 0;
+                rs.Vj = 0;
+                rs.Vk = 0;
+            }
+        }
     }
 }

@@ -106,32 +106,11 @@ namespace Project1
         private void ClearSystem()
         {
             this.textBox1.Text = "0";
-            foreach (DataGridViewRow row in resStationsDGV.Rows)
-            {
-                foreach (DataGridViewTextBoxCell cell in row.Cells)
-                {
-                    cell.Value = null;
-                }
-            }
-            foreach (DataGridViewRow row in ratTableDGV.Rows)
-            {
-                foreach (DataGridViewTextBoxCell cell in row.Cells)
-                {
-                    cell.Value = null;
-                }
-            }
-            for (int i = instructionQueueDGV.Rows.Count; i > 0; i--)
-            {
-                instructionQueueDGV.Rows.RemoveAt(i - 1);
-            }
-
-            foreach(DataGridViewRow row in robDGV.Rows)
-            {
-                foreach(DataGridViewCell cell in row.Cells)
-                {
-                    cell.Value = null;
-                }
-            }
+            ClearRS();
+            ClearRAT();
+            ClearRF();
+            ClearInstructionQueue();
+            ClearROB();            
 
             if (system != null)
             {
@@ -148,8 +127,52 @@ namespace Project1
                     system.ROBs.Clear();
                 }
             }
+        }
 
+        public void ClearRS()
+        {
+            foreach (DataGridViewRow row in resStationsDGV.Rows)
+            {
+                foreach (DataGridViewTextBoxCell cell in row.Cells)
+                {
+                    cell.Value = null;
+                }
+            }
+        }
 
+        public void ClearInstructionQueue()
+        {
+            for (int i = instructionQueueDGV.Rows.Count; i > 0; i--)
+            {
+                instructionQueueDGV.Rows.RemoveAt(i - 1);
+            }
+        }
+
+        public void ClearROB()
+        {
+            foreach (DataGridViewRow row in robDGV.Rows)
+            {
+                foreach (DataGridViewCell cell in row.Cells)
+                {
+                    cell.Value = null;
+                }
+            }
+        }
+
+        public void ClearRAT()
+        {
+            foreach (DataGridViewRow row in ratTableDGV.Rows)
+            {
+                row.Cells["ratRATCol"].Value = null;
+            }
+        }
+
+        public void ClearRF()
+        {
+            foreach (DataGridViewRow row in ratTableDGV.Rows)
+            {
+                row.Cells["ratRFCol"].Value = null;
+            }
         }
 
         /// <summary>
@@ -229,6 +252,7 @@ namespace Project1
                 RF = system.InstructionQueue.First().DestReg;
             }
 
+            // Update RAT & RF after commit
             ReorderBuffer rob = system.Commit();
             if (rob != null)
             {
@@ -305,13 +329,28 @@ namespace Project1
 
         private void CommitUpdateDGV(ReorderBuffer rob)
         {
-            string currentRAT = this.ratTableDGV.Rows[rob.RegisterFile].Cells["ratRatCol"].Value.ToString();
-            if (currentRAT.Equals("ROB" + rob.Index))
+            if (!rob.Exception)
             {
-                this.ratTableDGV.Rows[rob.RegisterFile].Cells["ratRatCol"].Value = "RF" + rob.RegisterFile.ToString();
+                string currentRAT = this.ratTableDGV.Rows[rob.RegisterFile].Cells["ratRatCol"].Value.ToString();
+                if (currentRAT.Equals("ROB" + rob.Index))
+                {
+                    this.ratTableDGV.Rows[rob.RegisterFile].Cells["ratRatCol"].Value = "RF" + rob.RegisterFile.ToString();
+                }
+                this.ratTableDGV.Rows[rob.RegisterFile].Cells["ratRFCol"].Value = rob.Value;
+                this.robDGV.Rows[rob.Index + 1].Cells["commitCol"].Value = this.textBox1.Text;
             }
-            this.ratTableDGV.Rows[rob.RegisterFile].Cells["ratRFCol"].Value = rob.Value;
-            this.robDGV.Rows[rob.Index + 1].Cells["commitCol"].Value = this.textBox1.Text;
+            else
+            {
+                this.ClearInstructionQueue();
+                this.ClearRAT();
+                this.ClearROB();
+                this.ClearRS();
+                system.ClearRATonCommit();
+                system.ClearROBonCommit();
+                system.ClearRSonCommit();
+
+                MessageBox.Show("Arithmetic station caused an exception.  ROB, reservation stations, RAT, and instruction queue has been cleared.");
+            }
         }
 
         /// <summary>
