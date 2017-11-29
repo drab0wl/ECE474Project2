@@ -44,23 +44,23 @@
             this.ratRFCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ratRATCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.instructionQueueDGV = new System.Windows.Forms.DataGridView();
+            this.queueOpCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.queueDestCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.queueV1Col = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.queueV2Col = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.stepButton = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.robDGV = new System.Windows.Forms.DataGridView();
+            this.goTolabel = new System.Windows.Forms.Label();
+            this.goToTextBox = new System.Windows.Forms.TextBox();
+            this.goToButton = new System.Windows.Forms.Button();
             this.regCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.valCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.doneCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.issueCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.commitCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.exceptionCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.queueOpCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.queueDestCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.queueV1Col = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.queueV2Col = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.goTolabel = new System.Windows.Forms.Label();
-            this.goToTextBox = new System.Windows.Forms.TextBox();
-            this.goToButton = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.resStationsDGV)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ratTableDGV)).BeginInit();
@@ -70,12 +70,14 @@
             // 
             // menuStrip1
             // 
+            this.menuStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Padding = new System.Windows.Forms.Padding(9, 3, 0, 3);
             this.menuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.menuStrip1.Size = new System.Drawing.Size(602, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(903, 35);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -85,7 +87,7 @@
             this.openToolStripMenuItem,
             this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(50, 29);
             this.fileToolStripMenuItem.Text = "&File";
             // 
             // openToolStripMenuItem
@@ -94,14 +96,14 @@
             this.openToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
             this.openToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(205, 30);
             this.openToolStripMenuItem.Text = "&Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(205, 30);
             this.exitToolStripMenuItem.Text = "E&xit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -117,13 +119,14 @@
             this.rsVkCol,
             this.rsQjCol,
             this.rsQkCol});
-            this.resStationsDGV.Location = new System.Drawing.Point(12, 27);
+            this.resStationsDGV.Location = new System.Drawing.Point(18, 42);
+            this.resStationsDGV.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.resStationsDGV.Name = "resStationsDGV";
             this.resStationsDGV.ReadOnly = true;
             this.resStationsDGV.RowHeadersWidth = 60;
             this.resStationsDGV.RowTemplate.ReadOnly = true;
             this.resStationsDGV.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.resStationsDGV.Size = new System.Drawing.Size(576, 221);
+            this.resStationsDGV.Size = new System.Drawing.Size(864, 340);
             this.resStationsDGV.TabIndex = 1;
             // 
             // rsBusyCol
@@ -188,12 +191,13 @@
             this.ratTableDGV.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.ratRFCol,
             this.ratRATCol});
-            this.ratTableDGV.Location = new System.Drawing.Point(12, 254);
+            this.ratTableDGV.Location = new System.Drawing.Point(18, 391);
+            this.ratTableDGV.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.ratTableDGV.Name = "ratTableDGV";
             this.ratTableDGV.ReadOnly = true;
             this.ratTableDGV.RowHeadersWidth = 60;
             this.ratTableDGV.ShowRowErrors = false;
-            this.ratTableDGV.Size = new System.Drawing.Size(224, 237);
+            this.ratTableDGV.Size = new System.Drawing.Size(336, 365);
             this.ratTableDGV.TabIndex = 2;
             // 
             // ratRFCol
@@ -222,109 +226,14 @@
             this.queueDestCol,
             this.queueV1Col,
             this.queueV2Col});
-            this.instructionQueueDGV.Location = new System.Drawing.Point(242, 254);
+            this.instructionQueueDGV.Location = new System.Drawing.Point(363, 391);
+            this.instructionQueueDGV.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.instructionQueueDGV.Name = "instructionQueueDGV";
             this.instructionQueueDGV.ReadOnly = true;
             this.instructionQueueDGV.RowHeadersWidth = 50;
             this.instructionQueueDGV.ShowRowErrors = false;
-            this.instructionQueueDGV.Size = new System.Drawing.Size(346, 236);
+            this.instructionQueueDGV.Size = new System.Drawing.Size(519, 363);
             this.instructionQueueDGV.TabIndex = 3;
-            // 
-            // stepButton
-            // 
-            this.stepButton.Enabled = false;
-            this.stepButton.Location = new System.Drawing.Point(513, 695);
-            this.stepButton.Name = "stepButton";
-            this.stepButton.Size = new System.Drawing.Size(75, 23);
-            this.stepButton.TabIndex = 4;
-            this.stepButton.Text = "Step";
-            this.stepButton.UseVisualStyleBackColor = true;
-            this.stepButton.Click += new System.EventHandler(this.stepButton_Click);
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(513, 669);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ReadOnly = true;
-            this.textBox1.Size = new System.Drawing.Size(75, 20);
-            this.textBox1.TabIndex = 5;
-            this.textBox1.Text = "0";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(513, 653);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(36, 13);
-            this.label1.TabIndex = 6;
-            this.label1.Text = "Cycle:";
-            // 
-            // robDGV
-            // 
-            this.robDGV.AllowUserToAddRows = false;
-            this.robDGV.AllowUserToDeleteRows = false;
-            this.robDGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.robDGV.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.regCol,
-            this.valCol,
-            this.doneCol,
-            this.issueCol,
-            this.commitCol,
-            this.exceptionCol});
-            this.robDGV.Location = new System.Drawing.Point(12, 497);
-            this.robDGV.Name = "robDGV";
-            this.robDGV.ReadOnly = true;
-            this.robDGV.RowHeadersWidth = 75;
-            this.robDGV.Size = new System.Drawing.Size(495, 221);
-            this.robDGV.TabIndex = 7;
-            // 
-            // regCol
-            // 
-            this.regCol.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.regCol.HeaderText = "Register";
-            this.regCol.Name = "regCol";
-            this.regCol.ReadOnly = true;
-            this.regCol.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // valCol
-            // 
-            this.valCol.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.valCol.HeaderText = "Value";
-            this.valCol.Name = "valCol";
-            this.valCol.ReadOnly = true;
-            this.valCol.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // doneCol
-            // 
-            this.doneCol.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.doneCol.HeaderText = "Done";
-            this.doneCol.Name = "doneCol";
-            this.doneCol.ReadOnly = true;
-            this.doneCol.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // issueCol
-            // 
-            this.issueCol.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.issueCol.HeaderText = "Issue";
-            this.issueCol.Name = "issueCol";
-            this.issueCol.ReadOnly = true;
-            this.issueCol.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // commitCol
-            // 
-            this.commitCol.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.commitCol.HeaderText = "Commit";
-            this.commitCol.Name = "commitCol";
-            this.commitCol.ReadOnly = true;
-            this.commitCol.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // exceptionCol
-            // 
-            this.exceptionCol.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.exceptionCol.HeaderText = "Exception";
-            this.exceptionCol.Name = "exceptionCol";
-            this.exceptionCol.ReadOnly = true;
-            this.exceptionCol.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // queueOpCol
             // 
@@ -358,39 +267,142 @@
             this.queueV2Col.ReadOnly = true;
             this.queueV2Col.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
+            // stepButton
+            // 
+            this.stepButton.Enabled = false;
+            this.stepButton.Location = new System.Drawing.Point(770, 1069);
+            this.stepButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.stepButton.Name = "stepButton";
+            this.stepButton.Size = new System.Drawing.Size(112, 35);
+            this.stepButton.TabIndex = 4;
+            this.stepButton.Text = "Step";
+            this.stepButton.UseVisualStyleBackColor = true;
+            this.stepButton.Click += new System.EventHandler(this.stepButton_Click);
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(770, 1029);
+            this.textBox1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.ReadOnly = true;
+            this.textBox1.Size = new System.Drawing.Size(110, 26);
+            this.textBox1.TabIndex = 5;
+            this.textBox1.Text = "0";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(770, 1005);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(51, 20);
+            this.label1.TabIndex = 6;
+            this.label1.Text = "Cycle:";
+            // 
+            // robDGV
+            // 
+            this.robDGV.AllowUserToAddRows = false;
+            this.robDGV.AllowUserToDeleteRows = false;
+            this.robDGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.robDGV.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.regCol,
+            this.valCol,
+            this.doneCol,
+            this.issueCol,
+            this.commitCol,
+            this.exceptionCol});
+            this.robDGV.Location = new System.Drawing.Point(18, 765);
+            this.robDGV.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.robDGV.Name = "robDGV";
+            this.robDGV.ReadOnly = true;
+            this.robDGV.RowHeadersWidth = 75;
+            this.robDGV.Size = new System.Drawing.Size(742, 340);
+            this.robDGV.TabIndex = 7;
+            // 
             // goTolabel
             // 
             this.goTolabel.AutoSize = true;
-            this.goTolabel.Location = new System.Drawing.Point(513, 585);
+            this.goTolabel.Location = new System.Drawing.Point(770, 900);
+            this.goTolabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.goTolabel.Name = "goTolabel";
-            this.goTolabel.Size = new System.Drawing.Size(40, 13);
+            this.goTolabel.Size = new System.Drawing.Size(57, 20);
             this.goTolabel.TabIndex = 9;
             this.goTolabel.Text = "Go To:";
             // 
             // goToTextBox
             // 
-            this.goToTextBox.Location = new System.Drawing.Point(513, 601);
+            this.goToTextBox.Location = new System.Drawing.Point(770, 925);
+            this.goToTextBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.goToTextBox.Name = "goToTextBox";
-            this.goToTextBox.Size = new System.Drawing.Size(75, 20);
+            this.goToTextBox.Size = new System.Drawing.Size(110, 26);
             this.goToTextBox.TabIndex = 8;
             this.goToTextBox.Text = "0";
             // 
             // goToButton
             // 
             this.goToButton.Enabled = false;
-            this.goToButton.Location = new System.Drawing.Point(513, 627);
+            this.goToButton.Location = new System.Drawing.Point(770, 965);
+            this.goToButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.goToButton.Name = "goToButton";
-            this.goToButton.Size = new System.Drawing.Size(77, 23);
+            this.goToButton.Size = new System.Drawing.Size(116, 35);
             this.goToButton.TabIndex = 10;
             this.goToButton.Text = "Go To";
             this.goToButton.UseVisualStyleBackColor = true;
             this.goToButton.Click += new System.EventHandler(this.goToButton_Click);
             // 
+            // regCol
+            // 
+            this.regCol.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.regCol.HeaderText = "Register";
+            this.regCol.Name = "regCol";
+            this.regCol.ReadOnly = true;
+            this.regCol.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // valCol
+            // 
+            this.valCol.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.valCol.HeaderText = "Value";
+            this.valCol.Name = "valCol";
+            this.valCol.ReadOnly = true;
+            this.valCol.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // doneCol
+            // 
+            this.doneCol.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.doneCol.HeaderText = "Done";
+            this.doneCol.Name = "doneCol";
+            this.doneCol.ReadOnly = true;
+            this.doneCol.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // issueCol
+            // 
+            this.issueCol.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.issueCol.HeaderText = "Issue Pointer";
+            this.issueCol.Name = "issueCol";
+            this.issueCol.ReadOnly = true;
+            this.issueCol.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // commitCol
+            // 
+            this.commitCol.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.commitCol.HeaderText = "Commit Pointer";
+            this.commitCol.Name = "commitCol";
+            this.commitCol.ReadOnly = true;
+            this.commitCol.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // exceptionCol
+            // 
+            this.exceptionCol.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.exceptionCol.HeaderText = "Exception";
+            this.exceptionCol.Name = "exceptionCol";
+            this.exceptionCol.ReadOnly = true;
+            this.exceptionCol.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(602, 731);
+            this.ClientSize = new System.Drawing.Size(903, 1125);
             this.Controls.Add(this.goToButton);
             this.Controls.Add(this.goTolabel);
             this.Controls.Add(this.goToTextBox);
@@ -403,6 +415,7 @@
             this.Controls.Add(this.resStationsDGV);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
+            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "Form1";
             this.Text = "Project2";
             this.menuStrip1.ResumeLayout(false);
@@ -431,12 +444,6 @@
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DataGridView robDGV;
-        private System.Windows.Forms.DataGridViewTextBoxColumn regCol;
-        private System.Windows.Forms.DataGridViewTextBoxColumn valCol;
-        private System.Windows.Forms.DataGridViewTextBoxColumn doneCol;
-        private System.Windows.Forms.DataGridViewTextBoxColumn issueCol;
-        private System.Windows.Forms.DataGridViewTextBoxColumn commitCol;
-        private System.Windows.Forms.DataGridViewTextBoxColumn exceptionCol;
         private System.Windows.Forms.DataGridViewTextBoxColumn rsBusyCol;
         private System.Windows.Forms.DataGridViewTextBoxColumn rsOpCol;
         private System.Windows.Forms.DataGridViewTextBoxColumn rsVjCol;
@@ -450,6 +457,12 @@
         private System.Windows.Forms.Label goTolabel;
         private System.Windows.Forms.TextBox goToTextBox;
         private System.Windows.Forms.Button goToButton;
+        private System.Windows.Forms.DataGridViewTextBoxColumn regCol;
+        private System.Windows.Forms.DataGridViewTextBoxColumn valCol;
+        private System.Windows.Forms.DataGridViewTextBoxColumn doneCol;
+        private System.Windows.Forms.DataGridViewTextBoxColumn issueCol;
+        private System.Windows.Forms.DataGridViewTextBoxColumn commitCol;
+        private System.Windows.Forms.DataGridViewTextBoxColumn exceptionCol;
     }
 }
 

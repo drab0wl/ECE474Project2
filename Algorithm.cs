@@ -16,7 +16,7 @@ namespace Project1
         private List<ReservationStation> MultStations;
         public int IssuePointer { get { return (int)(_IssuePointer % MAX_ROBS); } }
         private int _IssuePointer = 0;
-        public int CommitPointer { get { return _CommitPointer; } }
+        public int CommitPointer { get { return (int)(_CommitPointer % MAX_ROBS); } }
         public int _CommitPointer = 0;
 
         private ArithmeticStation AddUnit;
@@ -327,6 +327,7 @@ namespace Project1
                         }
                     }
                     returnRob = rob;
+                    rob.Done = false;
                     break;
                 }
             }

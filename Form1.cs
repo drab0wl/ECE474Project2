@@ -283,7 +283,8 @@ namespace Project1
                 this.instructionQueueDGV.Rows.RemoveAt(0);
                 AddValuesToRS(issueStation);
                 this.robDGV.Rows[issuePointer].Cells["regCol"].Value = "RF" + RF;
-                this.robDGV.Rows[issuePointer + 1].Cells["issueCol"].Value = this.textBox1.Text;
+                int issuePointerCellIndex = (int)((issuePointer + 1) % Algorithm.MAX_ROBS);
+                this.robDGV.Rows[issuePointerCellIndex].Cells["issueCol"].Value = this.textBox1.Text;
                 this.robDGV.Rows[issuePointer].Cells["exceptionCol"].Value = "0";
                 this.ratTableDGV.Rows[RF].Cells["ratRATCol"].Value = "ROB" + issuePointer;
             }
@@ -337,7 +338,9 @@ namespace Project1
                     this.ratTableDGV.Rows[rob.RegisterFile].Cells["ratRatCol"].Value = "RF" + rob.RegisterFile.ToString();
                 }
                 this.ratTableDGV.Rows[rob.RegisterFile].Cells["ratRFCol"].Value = rob.Value;
-                this.robDGV.Rows[rob.Index + 1].Cells["commitCol"].Value = this.textBox1.Text;
+
+                int commitPointerCellIndex = (int)((rob.Index + 1) % Algorithm.MAX_ROBS);
+                this.robDGV.Rows[commitPointerCellIndex].Cells["commitCol"].Value = this.textBox1.Text;
             }
             else
             {
